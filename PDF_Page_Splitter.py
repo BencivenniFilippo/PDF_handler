@@ -18,7 +18,7 @@ def split_pdf(input_path, output_path, num_splits):
         split_height = height / num_splits
 
         for i in range(num_splits):
-            new_page = reader.pages[0]
+            new_page = page
 
             # Crop the page
             new_page.mediabox.upper_left = (0, height - (i + 1) * split_height)
@@ -32,33 +32,3 @@ def split_pdf(input_path, output_path, num_splits):
             writer.write(output_file)
 
     print(f"PDF split into {num_splits} parts and saved as '{output_path}'.")
-
-
-
-def main(input_path):
-     
-    if not os.path.exists(input_path):
-        raise FileNotFoundError(f"The file '{input_path}' does not exist.")
-    
-    input_dir = os.path.dirname(input_path)
-    input_filename = os.path.basename(input_path)
-
-    output_filename = '\\split_' + input_filename
-    output_path = input_dir + output_filename
-
-    split_pdf(input_path, output_path, 3)
-
-main(r"G:\My Drive\Documenti\Statistical Modelling\01_introduction.pdf")
-
-
-#     with open(input_path, 'rb') as input_file:
-#         reader = PyPDF2.PdfReader(input_file)
-# 
-#         if len(reader.pages) > 1:
-#             print('The PDF must have exactly 1 page to split')
-#             return
-#         
-#         page = reader.pages[0]
-#         height = page.mediabox.height
-#         
-#         if height < 
