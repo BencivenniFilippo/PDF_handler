@@ -12,7 +12,7 @@ def get_split_page_height(doc_path):
             denominator = 1000
             splits = height//denominator
 
-            print(f'{os.path.basename(doc_path)}: {page.mediabox.height} - ({splits}, {height//splits})') # print the base name of the file and it's length
+            print(f'{os.path.basename(doc_path)}: {page.mediabox.height} - (splits: {splits} - height per split: {height//splits})') # print the base name of the file and it's length
 
             return (height//splits, splits)
         
@@ -32,11 +32,10 @@ def split_pdf(input_path, output_path, num_splits):
         page = reader.pages[0]
         width = page.mediabox.width
         height = page.mediabox.height
-        print(height)
 
         split_height = height / num_splits
 
-        for i in range(num_splits):
+        for i in range(int(num_splits)):
             new_page = page
 
             # Crop the page

@@ -17,11 +17,12 @@ def main(dir_path):
         split_page_height, splits = get_split_page_height(file_path)
 
         if split_page_height < 1800:
-            split_pdf(dir_path, output_path, splits)
+            print(splits)
+            split_pdf(file_path, output_path, splits)
 
         # Too big pages
         else:
-            split_pdf(dir_path, output_path, splits+1)
+            split_pdf(file_path, output_path, splits+1)
         
 
 if __name__ == '__main__':
