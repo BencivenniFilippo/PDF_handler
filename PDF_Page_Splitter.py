@@ -1,8 +1,27 @@
 import PyPDF2
 import os
 
-""" Common height for a document is 842
-    If 4000 then 3 splits is ok"""
+def get_split_page_height(doc_path):
+    try:
+        with open(doc_path, 'rb') as f:
+            reader = PyPDF2.PdfReader(f)
+
+            page = reader.pages[0]
+
+            height = page.mediabox.height
+            denominator = 1000
+            splits = height//denominator
+
+            print(f'{os.path.basename(doc_path)}: {page.mediabox.height} - ({splits}, {height//splits})') # print the base name of the file and it's length
+
+            return (height//splits, splits)
+        
+    except Exception as e:
+        print((f"Error reading {os.path.basename(doc_path)}: {e}"))
+        return (900, 1)
+    
+
+""" Common height for a document is 842"""
 
 def split_pdf(input_path, output_path, num_splits):
     
